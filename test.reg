@@ -1,7 +1,3 @@
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System]
-"Wallpaper"=REG_SZ:/path/to/wallpaper
-"WallpaperStyle"=REG_SZ:4
-
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize]
 "AppsUseLightTheme"=dword:00000000
 "SystemUsesLightTheme"=dword:00000000
