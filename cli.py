@@ -31,6 +31,26 @@ def write_registry_from_config(config: str):
                 dword_value = int(value.split(":")[1], 16)
                 with winreg.CreateKeyEx(current_key[0], current_key[1], 0, winreg.KEY_SET_VALUE) as key:
                     winreg.SetValueEx(key, name.strip('"'), 0, winreg.REG_DWORD, dword_value)
+            elif value.startswith("qword:"):
+                qword_value = int(value.split(":")[1], 16)
+                with winreg.CreateKeyEx(current_key[0], current_key[1], 0, winreg.KEY_SET_VALUE) as key:
+                    winreg.SetValueEx(key, name.strip('"'), 0, winreg.REG_QWORD, qword_value)
+            elif value.startswith("REG_SZ:"):
+                REG_SZ_value = value.split(":", 1)[1].strip('"')
+                with winreg.CreateKeyEx(current_key[0], current_key[1], 0, winreg.KEY_SET_VALUE) as key:
+                    winreg.SetValueEx(key, name.strip('"'), 0, winreg.REG_SZ, REG_SZ_value)
+            elif value.startswith("REG_MULTI_SZ:"):
+                REG_MULTI_SZ_value = value.split(":", 1)[1].strip('"').split("\\0")
+                with winreg.CreateKeyEx(current_key[0], current_key[1], 0, winreg.KEY_SET_VALUE) as key:
+                    winreg.SetValueEx(key, name.strip('"'), 0, winreg.REG_MULTI_SZ, REG_MULTI_SZ_value)
+            elif value.startswith("REG_EXPAND_SZ:"):
+                REG_EXPAND_SZ_value = value.split(":", 1)[1].strip('"')
+                with winreg.CreateKeyEx(current_key[0], current_key[1], 0, winreg.KEY_SET_VALUE) as key:
+                    winreg.SetValueEx(key, name.strip('"'), 0, winreg.REG_EXPAND_SZ, REG_EXPAND_SZ_value)
+            elif value.startswith("REG_BINARY:"):
+                REG_BINARY_value = bytes.fromhex(value.split(":", 1)[1].strip('"'))
+                with winreg.CreateKeyEx(current_key[0], current_key[1], 0, winreg.KEY_SET_VALUE) as key:
+                    winreg.SetValueEx(key, name.strip('"'), 0, winreg.REG_BINARY, REG_BINARY_value)
             else:
                 raise ValueError(f"Unsupported value format: {value}")
         else:
