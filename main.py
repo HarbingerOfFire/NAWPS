@@ -1,5 +1,7 @@
 import sys
 
+def main_gui():pass
+
 def main_cli(conf=None):
     import cli
     with open(conf, 'r') as file:
@@ -8,11 +10,10 @@ def main_cli(conf=None):
 
 def main(conf=None):
     if conf is None:
-        print("No configuration provided.")
+        main_gui()
         return
 
-    # Simulate some processing with the provided configuration
-    print(f"Processing with configuration: {conf}")
+    main_cli(conf)
 
 
 if __name__ == "__main__":
