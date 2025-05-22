@@ -12,10 +12,16 @@ def write_registry_from_config(config: str):
 
         if line.startswith("[") and line.endswith("]"):
             key_path = line[1:-1]
-            if key_path.startswith("HKEY_CURRENT_USER\\"):
+            if key_path.startswith("HKEY_CLASSES_ROOT\\"):
+                current_key = (winreg.HKEY_CLASSES_ROOT, key_path[len("HKEY_CLASSES_ROOT\\"):])
+            elif key_path.startswith("HKEY_CURRENT_USER\\"):
                 current_key = (winreg.HKEY_CURRENT_USER, key_path[len("HKEY_CURRENT_USER\\"):])
             elif key_path.startswith("HKEY_LOCAL_MACHINE\\"):
                 current_key = (winreg.HKEY_LOCAL_MACHINE, key_path[len("HKEY_LOCAL_MACHINE\\"):])
+            elif key_path.startswith("HKEY_USERS\\"):
+                current_key = (winreg.HKEY_USERS, key_path[len("HKEY_USERS\\"):])
+            elif key_path.startswith("HKEY_CURRENT_CONFIG\\"):
+                current_key = (winreg.HKEY_CURRENT_CONFIG, key_path[len("HKEY_CURRENT_CONFIG\\"):])
             else:
                 raise ValueError(f"Unsupported root key in path: {key_path}")
         elif "=" in line and current_key:
