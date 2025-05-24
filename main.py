@@ -42,4 +42,4 @@ if __name__ == "__main__":
         conf = sys.argv[1]
         main(conf)
     except IndexError:
-        pass
+        main()
