@@ -1,6 +1,9 @@
 import sys
 
-def main_gui():pass
+def main_gui():
+    import gui
+    app = gui.DarkModeApp()
+    app.mainloop()
 
 def main_cli(conf=None):
     import cli
