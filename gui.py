@@ -163,7 +163,7 @@ class App(ctk.CTk):
         except FileNotFoundError:
             return False
 
-if __name__ == "__main__":
+def gui_main():
     app = App()
 
     # Example usage
@@ -174,3 +174,7 @@ if __name__ == "__main__":
     app.add_setting(app_select, function=app.AppTheme)
 
     app.mainloop()
+
+
+if __name__ == "__main__":
+    gui_main()
