@@ -1,9 +1,18 @@
 import sys
 
 def main_gui():
-    import gui
-    app = gui.DarkModeApp()
+    from gui import App, Setting
+    app = App()
+
+    # Example usage
+    system_theme = Setting(app, type="switch", name="System Theme")
+    app.add_setting(system_theme, function=app.SystemTheme)
+
+    app_select = Setting(app, type="list", name="App Theme", options=["Light", "Dark"])
+    app.add_setting(app_select, function=app.AppTheme)
+
     app.mainloop()
+
 
 def main_cli(conf=None):
     import cli
